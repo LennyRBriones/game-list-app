@@ -3,6 +3,7 @@ package com.lennyrbriones.gamelistapp.components
 
 import android.content.Intent
 import android.net.Uri
+import android.service.autofill.OnClickAction
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -41,22 +43,34 @@ import com.lennyrbriones.gamelistapp.util.Constants.Companion.CUSTOM_GREEN
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainTopBar(title: String, showBackButton: Boolean = false, onClickBackButton: () -> Unit) {
+fun MainTopBar(title: String, showBackButton: Boolean = false, onClickBackButton: () -> Unit, onClickAction: () -> Unit) {
     TopAppBar(
         title = { Text(text = title, color = Color.White, fontWeight = FontWeight.ExtraBold) },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
             containerColor = Color(CUSTOM_BLACK)
         ),
-        navigationIcon =  {
-        if (showBackButton) {
-            IconButton(onClick = { onClickBackButton() }) {
-                Icon(imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "",
-                    tint = Color.White
+        navigationIcon = {
+            if (showBackButton) {
+                IconButton(onClick = { onClickBackButton() }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "",
+                        tint = Color.White
                     )
+                }
+            }
+        },
+        actions = {
+            if (!showBackButton) {
+                IconButton(onClick = { onClickAction() }) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "",
+                        tint = Color.White
+                    )
+                }
             }
         }
-    }
     )
 
 }
@@ -79,16 +93,17 @@ fun CardGame(game: GameList, onClick: () -> Unit){
 }
 
 @Composable
-fun MainImage(image: String){
-    val image = rememberImagePainter(data = image )
+fun MainImage(image: String) {
+    val image = rememberImagePainter(data = image)
 
-        Image(painter = image,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(250.dp)
-        )
+    Image(
+        painter = image,
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(250.dp)
+    )
 }
 
 @Composable

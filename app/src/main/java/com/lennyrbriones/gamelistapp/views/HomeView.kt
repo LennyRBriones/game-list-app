@@ -25,8 +25,8 @@ import com.lennyrbriones.gamelistapp.viewmodel.GamesViewModel
 fun HomeView(viewModel: GamesViewModel, navController: NavController){
     Scaffold(
         topBar = {
-            MainTopBar(title = "API GAMES"){
-
+            MainTopBar(title = "API GAMES", onClickBackButton = {}){
+                navController.navigate("SearchGameView")
             }
         }
     ) {
