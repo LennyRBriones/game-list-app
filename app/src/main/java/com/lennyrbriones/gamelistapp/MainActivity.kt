@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.lennyrbriones.gamelistapp.navigation.NavManager
 import com.lennyrbriones.gamelistapp.ui.theme.GameListAppTheme
 import com.lennyrbriones.gamelistapp.viewmodel.GamesViewModel
 import com.lennyrbriones.gamelistapp.views.HomeView
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    HomeView(viewModel)
+                    NavManager(viewModel)
                 }
             }
         }
